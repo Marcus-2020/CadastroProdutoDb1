@@ -1,6 +1,12 @@
-﻿namespace CadastroProduto.Api.Domain.Entities;
+﻿using Microsoft.AspNetCore.Authentication;
 
-public class Produto
+namespace CadastroProduto.Api.Domain.Entities;
+
+public class Produto : BaseEntity
 {
-    
+    public string Nome { get; set; }
+    public string Descricao { get; set; }
+    public decimal Valor { get; set; }
+    public List<Arquivo> Arquivos { get; set; }
+    public Dictionary<string, object> Atributos { get; set; }
 }

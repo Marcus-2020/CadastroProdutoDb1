@@ -1,4 +1,4 @@
-﻿namespace CadastroProduto.Api.Domain.Entities;
+﻿namespace CadastroProduto.Api.Domain.Enums;
 
 public enum ArquivoTipoEnum
 {
