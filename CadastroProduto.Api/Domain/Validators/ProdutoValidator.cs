@@ -5,23 +5,23 @@ namespace CadastroProduto.Api.Domain.Validators;
 
 public class ProdutoValidator :IValidator<Produto>
 {
-    public (bool, List<(string, string)>) Valida(Produto produto)
+    public (bool EhValido, Dictionary<string, string> Erros) Valida(Produto produto)
     {
-        List<(string,string)> erros = [];
+        var erros = new Dictionary<string, string>();
 
         if (produto.Nome.Trim() is null or "")
         {
-            erros.Add(("Nome", "Nome é obrigatório"));
+            erros.Add("Nome", "Nome é obrigatório");
         }
 
         if (produto.Descricao.Trim() is null or "")
         {
-            erros.Add(("Descricao", "A descrição do produto é obrigatória"));
+            erros.Add("Descricao", "A descrição do produto é obrigatória");
         }
 
         if (produto.Valor <= 0.0M)
         {
-            erros.Add(("Valor", "Valor não pode ser menor que 0.01"));
+            erros.Add("Valor", "Valor não pode ser menor que 0.01");
         }
 
         int countImg = 0;
@@ -35,7 +35,7 @@ public class ProdutoValidator :IValidator<Produto>
                     countImg++;
                     continue;
                 }
-                erros.Add(("Arquivos", "Não é permitido mais de 10 imagens"));
+                erros.Add("Arquivos", "Não é permitido mais de 10 imagens");
                 break;
             }
 
@@ -44,7 +44,7 @@ public class ProdutoValidator :IValidator<Produto>
                 countVideo++;
                 continue;
             }
-            erros.Add(("Arquivos", "Não é permitido mais de 10 imagens"));
+            erros.Add("Arquivos", "Não é permitido mais de 10 imagens");
             break;
         }
 

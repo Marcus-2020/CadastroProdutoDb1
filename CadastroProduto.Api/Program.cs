@@ -1,4 +1,5 @@
 using CadastroProduto.Api.Domain.Entities;
+using CadastroProduto.Api.Domain.Models;
 using CadastroProduto.Api.Domain.Services;
 using CadastroProduto.Api.Infra;
 using Microsoft.AspNetCore.Mvc;
@@ -26,17 +27,15 @@ app.UseHttpsRedirection();
 app.MapPost("api/v1/produto", ([FromServices] IProdutoService service, [FromBody] Produto produto) =>
 {
     var result = service.AdicionaProduto(produto);
-    if (result.EhFalha)
+    return result.EhFalha switch
     {
-        return result.Erro.Exception is not null 
-            ? Results.StatusCode(500) 
-            : Results.BadRequest("Ocorreu um erro ao adicionar o produto");
-    }
-
-    return Results.Created(default(string), new
-    {
-        produtoId = result.Valor,
-    });
+        true when result.Erro is ErroValidacao => Results.BadRequest(new
+        {
+            message = "Produto inválido", erros = (result.Erro as ErroValidacao)!.Erros
+        }),
+        true => Results.StatusCode(500),
+        _ => Results.Created(default(string), new { produtoId = result.Valor, })
+    };
 });
 
 app.Run();

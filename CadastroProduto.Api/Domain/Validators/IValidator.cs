@@ -2,5 +2,5 @@
 
 public interface IValidator<T>
 {
-    (bool, List<(string, string)>) Valida(T obj);
+    (bool EhValido, Dictionary<string, string> Erros) Valida(T obj);
 }

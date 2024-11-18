@@ -22,9 +22,9 @@ public class ProdutoService : IProdutoService
         try
         {
             var validacao = _produtoValidator.Valida(produto);
-            if (!validacao.Item1)
+            if (!validacao.EhValido)
             {
-                return Resultado<string>.Falha(new Erro("Produto inválido"));
+                return Resultado<string>.Falha(new ErroValidacao("Produto inválido", validacao.Erros));
             }
 
             var addProduto = _produtoRepository.AdicionaProduto(produto);

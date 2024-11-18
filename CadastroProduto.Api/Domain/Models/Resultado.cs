@@ -30,7 +30,7 @@ public struct Resultado<T>
     }
 }
 
-public struct Erro
+public class Erro
 {
     public string Message { get; private set; }
     public Exception? Exception { get; private set; }
@@ -41,3 +41,14 @@ public struct Erro
         Exception = exception;
     }
 }
+
+public class ErroValidacao : Erro
+{
+    public Dictionary<string, string> Erros { get; private set; }
+    
+    public ErroValidacao(string message, Dictionary<string, string> erros, Exception? exception = null)
+    : base(message, exception)
+    {
+        Erros = erros;
+    }
+} 
