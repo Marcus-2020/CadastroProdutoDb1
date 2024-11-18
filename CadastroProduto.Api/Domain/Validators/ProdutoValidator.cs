@@ -3,7 +3,7 @@ using CadastroProduto.Api.Domain.Enums;
 
 namespace CadastroProduto.Api.Domain.Validators;
 
-public class ProdutoValidator
+public class ProdutoValidator :IValidator<Produto>
 {
     public (bool, List<(string, string)>) Valida(Produto produto)
     {

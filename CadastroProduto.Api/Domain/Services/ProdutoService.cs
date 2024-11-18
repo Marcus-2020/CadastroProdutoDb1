@@ -5,13 +5,13 @@ using CadastroProduto.Api.Domain.Validators;
 
 namespace CadastroProduto.Api.Domain.Services;
 
-public class ProdutoService
+public class ProdutoService : IProdutoService
 {
-    private readonly ProdutoRepository _produtoRepository;
-    private readonly ProdutoValidator _produtoValidator;
+    private readonly IProdutoRepository _produtoRepository;
+    private readonly IValidator<Produto> _produtoValidator;
 
-    public ProdutoService(ProdutoRepository produtoRepository,
-        ProdutoValidator produtoValidator)
+    public ProdutoService(IProdutoRepository produtoRepository,
+        IValidator<Produto> produtoValidator)
     {
         _produtoRepository = produtoRepository;
         _produtoValidator = produtoValidator;
